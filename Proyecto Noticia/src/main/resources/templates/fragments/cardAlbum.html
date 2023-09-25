@@ -1,0 +1,25 @@
+<div th:each="noticia : ${noticias}"
+     th:value="${noticia.id}" 
+     class="col">
+    <div class="card shadow-sm">
+        <img class="bd-placeholder-img card-img-top" src="fondo_noticia.jpg" width="100%" height="225">
+        <div class="card-body">
+            <p th:text="${noticia.titulo}" class="card-text">CUERPO NOTICIA</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    <a th:href="@{/noticia/verNoticia/{id}(id=${noticia.id})}">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Leer Noticia</button>
+                    </a>
+                    <a th:href="@{/admin/modificar/{id}(id=${noticia.id})}" sec:authorize="hasRole('ADMIN')">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Editar</button>
+                    </a>
+                    <form th:action="@{/admin/eliminar/{id} (id=${noticia.id})}" method="POST">
+                        <input type="hidden" th:value="${noticia.id}" />
+                        <button type="submit" class="btn btn-sm btn-outline-secondary">Eliminar</button>
+                    </form>
+                </div>
+                <small class="text-body-secondary" th:text="${noticia.fechaDeCarga}">FECHA</small>
+            </div>
+        </div>
+    </div>
+</div>
